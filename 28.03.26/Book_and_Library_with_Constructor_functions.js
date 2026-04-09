@@ -1,56 +1,53 @@
-class Book {
-    constructor(title, autor, year) {
+function Book(title, author, year) {
         this.title = title;
-        this.author = autor;
+        this.author = author;
         this.year = year;
         this.isAvailable = true;
-    }
+}
 
-    getInfo() {
-        let str = `Title:  ${this.title} \nAuthor: ${this.author} \nYear:   ${this.year}\n`;
-        return str;
-    }
-
-    borrowBook() {
-        if(this.isAvailable) {
-            this.isAvailable = false;
+Book.prototype.getInfo = function() {
+            let str = `Title:  ${this.title} \nAuthor: ${this.author} \nYear:   ${this.year}\n`;
+            return str;
         }
-        else {
-            console.log('The book is already unavailable');
-        }
-        return;
-    }
 
-    returnBook() {
-        if(!this.isAvailable) {
-            this.isAvailable = true;
-        } else {
-            console.log('The book is already here');
+Book.prototype.borrowBook = function() {
+            if(this.isAvailable) {
+                this.isAvailable = false;
+            }
+            else {
+                console.log('The book is already unavailable');
+            }
             return;
         }
-    }
 
-    matchesAuthor(authorName) {
-        if(this.author.toLowerCase() === authorName.toLowerCase()) return true;
-        return false;
-    }
+Book.prototype.returnBook = function() {
+            if(!this.isAvailable) {
+                this.isAvailable = true;
+            } else {
+                console.log('The book is already here');
+                return;
+            }
+        }
 
-    matchesTitle(word) {
-        if(this.title.includes(word)) return true;
-        return false;
-    }
-};
+Book.prototype.matchesAuthor = function(authorName) {
+            if(this.author.toLowerCase() === authorName.toLowerCase()) return true;
+            return false;
+        }
 
-class Library {
-    constructor() {
-        this.books = [];
-    }
+Book.prototype.matchesTitle = function(word) {
+            if(this.title.includes(word)) return true;
+            return false;
+        }
 
-    addBook(book) {
+function Library() {
+    this.books = [];
+}
+
+Library.prototype.addBook = function(book) {
         this.books.push(book);
     }
 
-    removeBook(title) {
+Library.prototype.removeBook = function(title) {
         let ind = this.books.findIndex(book => book.title === title);
         if(ind !== -1) {
             this.books.splice(ind, 1);
@@ -60,19 +57,19 @@ class Library {
         return;
     }
 
-    findBookByTitle(title) {
+Library.prototype.findBookByTitle = function(title) {
         return this.books.find(book => book.title === title) ?? null;
     }
 
-    findBooksByAuthor(authorName) {
+Library.prototype.findBooksByAuthor = function(authorName) {
         return this.books.filter(book => book.matchesAuthor(authorName));
     }
 
-    getAvailableBooks() {
+Library.prototype.getAvailableBooks = function() {
         return this.books.filter(book => book.isAvailable === true);
     }
 
-    borrowBook(title){
+Library.prototype.borrowBook = function(title){
         let flag = 0;
         for(let book of this.books) {
             if(book.title === title) {
@@ -86,7 +83,7 @@ class Library {
         return;
     }
 
-    returnBook(title) {
+Library.prototype.returnBook = function(title) {
         let flag = 0;
         for(let book of this.books) {
             if(book.title === title) {
@@ -100,13 +97,13 @@ class Library {
         return;
     }
 
-    showAllBooks() {
+Library.prototype.showAllBooks = function() {
         for(let book of this.books) {
             book.getInfo();
         }
     }
 
-    countBooks() {
+Library.prototype.countBooks = function() {
         let count = 0;
         for(let book of this.books) {
             count++;
@@ -114,15 +111,15 @@ class Library {
         return count;
     }
 
-    countAvailableBooks() {
+Library.prototype.countAvailableBooks = function() {
         return this.getAvailableBooks().length;
     }
 
-    searchBooks(word) {
+Library.prototype.searchBooks = function(word) {
         return this.books.filter(book => book.matchesTitle(word));
     }
 
-    getOldestBook() {
+Library.prototype.getOldestBook = function() {
         if(!this.books) {
             return null;
         }
@@ -137,7 +134,6 @@ class Library {
         }
         return oldestBook;
     }
-};
 
 const book1 = new Book("Harry Potter", "J. K. Rowling", 1997);
 const book2 = new Book("1984", "George Orwell", 1949);
