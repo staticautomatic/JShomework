@@ -2,12 +2,11 @@ class Book {
     #title;
     #author;
     #year;
-    #isAvailable;
+    #isAvailable = true;
     constructor(title, author, year) {
-        this.#title = title;
-        this.#author = author;
-        this.#year = year;
-        this.#isAvailable = true;
+        this.title = title;
+        this.author = author;
+        this.year = year;
     }
 
     get title() {
@@ -16,7 +15,6 @@ class Book {
     set title(value) {
         if(!value) return;
         this.#title = value;
-        return;
     }
 
     get author() {
@@ -25,7 +23,6 @@ class Book {
     set author(value) {
         if(!value) return;
         this.#author = value;
-        return;
     }
 
     get year() {
@@ -34,7 +31,6 @@ class Book {
     set year(value) {
         if(value < 0) return;
         this.#year = value;
-        return;
     }
 
     get isAvailable() {
@@ -76,10 +72,9 @@ class Book {
 
 class Reader {
     #name;
-    #borrowedBooks;
+    #borrowedBooks = [];
     constructor(name) {
-        this.#name = name;
-        this.#borrowedBooks = [];
+        this.name = name;
     }
 
     get name() {
@@ -88,7 +83,6 @@ class Reader {
     set name(value) {
         if(!value) return;
         this.#name = value;
-        return;
     }
 
     get borrowedBooks() {
@@ -133,12 +127,10 @@ class Reader {
 
 class Library {
     #name;
-    #books;
-    #readers;
+    #books = [];
+    #readers = [];
     constructor(name) {
-        this.#name = name;
-        this.#books = [];
-        this.#readers = [];
+        this.name = name;
     }
 
     get name() {
@@ -147,7 +139,6 @@ class Library {
     set name(value) {
         if(!value) return;
         this.#name = value;
-        return; 
     }
 
     get books() {
@@ -207,7 +198,7 @@ class Library {
     }
 
     getLibraryInfo() {
-        let strInfo = `Center Library: ${this.#books.length} books, ${this.#readers.length} readers`;
+        let strInfo = `${this.#name}: ${this.#books.length} books, ${this.#readers.length} readers`;
         return strInfo;
     }
 };

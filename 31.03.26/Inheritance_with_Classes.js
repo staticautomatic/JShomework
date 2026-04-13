@@ -13,7 +13,7 @@ class Animal {
     }
 
     makeSound() {
-        return 'Some animal sound';
+        return 'Some sound';
     }
 
     getInfo() {

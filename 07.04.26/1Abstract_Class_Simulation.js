@@ -1,6 +1,8 @@
 class Shape {
     constructor() {
-        throw new Error("Cannot instantiate abstract class");
+        if(new.target === Shape) {
+            throw new Error("Cannot instantiate abstract class");
+        }
     }
 
     getArea() {
@@ -8,8 +10,9 @@ class Shape {
     }
 }
 
-class Rectangle {
+class Rectangle extends Shape {
     constructor(width, height) {
+        super();
         this.width = width;
         this.height = height;
     }
@@ -19,13 +22,14 @@ class Rectangle {
     }
 }
 
-class Circle {
+class Circle extends Shape {
     constructor(radius) {
+        super();
         this.radius = radius;
     }
 
     getArea() {
-        return π * this.radius * this.radius;
+        return Math.PI * this.radius ** 2;
     }
 }
 
