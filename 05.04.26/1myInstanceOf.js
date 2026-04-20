@@ -5,27 +5,12 @@ function myInstanceOf(obj, Constructor) {
        typeof obj === 'symbol' || typeof obj === 'string') 
        { return false; }
 
-    if(Constructor === Object) { 
-        return true; 
-    }
-    else if(Constructor === Function) {
-        if(obj.__proto__ === Function.prototype) {
+    let cur = obj.__proto__;
+    while (cur != null)  {
+        if(cur === Constructor.prototype) {
             return true;
         }
-    }
-    else if(Constructor === Array) {
-        if(obj.__proto__ === Array.prototype) {
-            return true;
-        } 
-    } 
-    else if(Constructor === String) {
-        if(obj.__proto__ === String.prototype) {
-            return true;
-        } 
-    }
-    else if(obj.__proto__ === Constructor.prototype ||
-            obj.__proto__.__proto__ === Constructor.prototype) {
-        return true;
+        cur = cur.__proto__;
     }
     return false;
 }
